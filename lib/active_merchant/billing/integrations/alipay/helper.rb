@@ -71,9 +71,9 @@ module ActiveMerchant #:nodoc:
             super
           end
 
-          def sign
+          def sign(key = KEY)
             add_field('sign',
-                      Digest::MD5.hexdigest((@fields.sort.collect{|s|s[0]+"="+CGI.unescape(s[1])}).join("&")+KEY)
+                      Digest::MD5.hexdigest((@fields.sort.collect{|s|s[0]+"="+CGI.unescape(s[1])}).join("&")+key)
                      )
             add_field('sign_type', 'MD5')
             nil

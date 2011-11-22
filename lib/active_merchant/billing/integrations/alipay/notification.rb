@@ -20,8 +20,8 @@ module ActiveMerchant #:nodoc:
             trade_status
           end
 
-          def acknowledge
-            raise StandardError.new("Faulty alipay result: ILLEGAL_SIGN") unless verify_sign
+          def acknowledge(key = KEY)
+            raise StandardError.new("Faulty alipay result: ILLEGAL_SIGN") unless verify_sign(key)
             true
           end
 

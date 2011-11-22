@@ -6,7 +6,7 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module Alipay
         module Sign
-          def verify_sign
+          def verify_sign(key = KEY)
             sign_type = @params.delete("sign_type")
             sign = @params.delete("sign")
 
@@ -17,7 +17,7 @@ module ActiveMerchant #:nodoc:
                 s[0]+"="+s[1]
               end
             end
-            Digest::MD5.hexdigest(md5_string.join("&")+KEY) == sign.downcase
+            Digest::MD5.hexdigest(md5_string.join("&")+key) == sign.downcase
           end
         end
       end
