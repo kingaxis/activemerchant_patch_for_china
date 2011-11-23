@@ -19,8 +19,8 @@ module ActiveMerchant #:nodoc:
             super
           end
 
-          def success?
-            unless verify_sign
+          def success?(key = KEY)
+            unless verify_sign(key)
               @message = "Alipay Error: ILLEGAL_SIGN"
               return false
             end
