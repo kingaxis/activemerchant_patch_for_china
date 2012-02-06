@@ -18,9 +18,9 @@ module ActiveMerchant #:nodoc:
             @params["total_fee"]
           end
 
-          def success?
+          def success?(key = KEY, local_account = ACCOUNT)
             return false unless @params["pay_info"] == "OK" && @params["pay_result"] == "0"
-            unless account == ACCOUNT
+            unless account == local_account
               @message = "Tenpay Error: INCORRECT_ACCOUNT"
               return false
             end
@@ -29,7 +29,7 @@ module ActiveMerchant #:nodoc:
 
             md5_string = hash_keys.inject([]){|array, key| array << "#{key}=#{@params[key]}"}.join("&")
 
-            unless Digest::MD5.hexdigest(md5_string+"&key=#{KEY}") == @params["sign"].downcase
+            unless Digest::MD5.hexdigest(md5_string+"&key=#{key}") == @params["sign"].downcase
               @message = "Tenpay Error: ILLEGAL_SIGN"
               return false
             end
