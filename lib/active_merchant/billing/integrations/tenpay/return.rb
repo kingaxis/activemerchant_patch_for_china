@@ -14,12 +14,16 @@ module ActiveMerchant #:nodoc:
             @params["sp_billno"]
           end
 
-          def amount
+          def amount # 以分为单位
             @params["total_fee"]
           end
 
+          def total_fee # 以元为单位
+            @params["total_fee"].to_f / 100
+          end
+
           def success?(key = KEY, local_account = ACCOUNT)
-            return false unless @params["pay_info"] == "OK" && @params["pay_result"] == "0"
+            return false unless @params["pay_result"] == "0"
             unless account == local_account
               @message = "Tenpay Error: INCORRECT_ACCOUNT"
               return false
