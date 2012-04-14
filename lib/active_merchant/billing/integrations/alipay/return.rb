@@ -11,6 +11,10 @@ module ActiveMerchant #:nodoc:
             @params["out_trade_no"]
           end
 
+          def trade_no # 支付宝交易号，需要保存到本地数据库，用于集成发货接口
+            @params["trade_no"]
+          end
+
           def amount
             @params["total_fee"]
           end
