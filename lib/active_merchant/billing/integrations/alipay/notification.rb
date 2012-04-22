@@ -16,6 +16,10 @@ module ActiveMerchant #:nodoc:
             trade_status == 'WAIT_BUYER_PAY'
           end
 
+          def payed? # 已支付，等待卖家发货(担保交易)
+            trade_status == 'WAIT_SELLER_SEND_GOODS'
+          end
+
           def status
             trade_status
           end
