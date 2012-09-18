@@ -8,8 +8,8 @@ module ActiveMerchant #:nodoc:
         class Notification < ActiveMerchant::Billing::Integrations::Notification
           include Sign
 
-          def complete?
-            trade_status == "TRADE_FINISHED"
+          def complete? # 普通即时到帐使用 TRADE_SUCCESS, 高级即时到帐(支持退款)使用 TRADE_SUCCESS
+            ["TRADE_FINISHED", "TRADE_SUCCESS"].include?(trade_status)
           end
 
           def pending?
